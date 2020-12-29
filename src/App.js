@@ -1,26 +1,21 @@
-import React from 'react';
-import PropTypes from "prop-types";
+import React from "react";
+import { HashRouter, Redirect, Route } from "react-router-dom";
+import Home from "./routes/Home";
+import About from "./routes/About";
+import Detail from "./components/Detail";
+import Navigation from "./components/Navigation";
 
-
-
-class App extends React.Component {
-    state = {
-        isLoading: true,
-        movies : []
-    }
-
-    componentDidMount() {
-        setTimeout(() => {
-            this.setState((current) => { return { isLoading: !current.isLoading } });
-        }, 3000);
-    }
-    render() {
-        console.log(this.state)
-        const { isLoading } = this.state;
-        return <div>{isLoading ? "Loading" : "we are ready"}
-        </div>;
-    }
+function App() {
+  return (
+    <HashRouter>
+      <Navigation />
+      <Redirect from="/" to="/movie" />
+      <Redirect from="/#" to="/movie" />
+      <Route path="/movie" exact={true} component={Home} />
+      <Route path="/about" component={About} />
+      <Route path="/movie/:id" component={Detail} />
+    </HashRouter>
+  );
 }
-
 
 export default App;
